@@ -46,3 +46,4 @@ jobs:
     - name: Set permissions
       run: |
         ssh -i ~/.ssh/id_rsa deploy@46.202.153.153 "sudo chown -R www-data:www-data /www/wwwroot/46.202.153.153/ratrappage"
+ 
