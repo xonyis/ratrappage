@@ -24,7 +24,7 @@ jobs:
         chmod 600 ~/.ssh/id_rsa
         ssh-keyscan -H 46.202.153.153 >> ~/.ssh/known_hosts
         ssh -i ~/.ssh/id_rsa root@46.202.153.153 "echo 'Connexion SSH réussie'"
-
+ 
 
     # Étape 2 : Synchroniser les fichiers avec le VPS 
     - name: Deploy to VPS
