@@ -22,8 +22,8 @@ jobs:
         mkdir -p ~/.ssh
         echo "$SSH_PRIVATE_KEY" > ~/.ssh/id_rsa
         chmod 600 ~/.ssh/id_rsa
-        ssh-keyscan -H ton-ip-du-vps >> ~/.ssh/known_hosts
-        ssh -i ~/.ssh/id_rsa root@ton-ip-du-vps "echo 'Connexion SSH réussie'"
+        ssh-keyscan -H 46.202.153.153 >> ~/.ssh/known_hosts
+        ssh -i ~/.ssh/id_rsa root@46.202.153.153 "echo 'Connexion SSH réussie'"
 
 
     # Étape 2 : Synchroniser les fichiers avec le VPS
