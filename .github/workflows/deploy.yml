@@ -23,7 +23,7 @@ jobs:
         echo "$SSH_PRIVATE_KEY" > ~/.ssh/id_rsa
         chmod 600 ~/.ssh/id_rsa
         ssh-keyscan -H 46.202.153.153 >> ~/.ssh/known_hosts
-        ssh -v -i ~/.ssh/id_rsa root@46.202.153.153 "echo 'Connexion SSH réussie'"
+        ssh -v -i ~/.ssh/id_rsa deploy-user@46.202.153.153 "echo 'Connexion SSH réussie'"
 
 
     # Étape 2 : Synchroniser les fichiers avec le VPS 
@@ -42,7 +42,7 @@ jobs:
       run: |
         ssh -i ~/.ssh/id_rsa root@46.202.153.153 "cd /www/wwwroot/46.202.153.153/ratrappage && composer install --no-dev --optimize-autoloader"
 
-    # Étape 5 : Régler les permissions
+    # Étape 4 : Régler les permissions
     - name: Set permissions
       run: |
         ssh -i ~/.ssh/id_rsa root@46.202.153.153 "sudo chown -R www-data:www-data /www/wwwroot/46.202.153.153/ratrappage"

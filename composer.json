@@ -12,5 +12,8 @@
             "App\\": "src/",
             "Mns\\Buggy\\Core\\": "core/"
         }
+    },
+    "scripts": {
+        "generate-openapi": "php vendor/bin/openapi src --output config/swagger/openapi.json"
     }
 }

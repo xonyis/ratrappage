@@ -35,12 +35,19 @@ class TicketController extends AbstractController
             'tickets' => $tickets
         ]);
     }
-/**
+    /**
+     * @Route("/api/hello", name="api_hello", methods={"GET"})
+     *
      * @OA\Get(
-     *     path="/api/data.json",
+     *     path="/api/hello",
+     *     summary="Get a simple hello message",
      *     @OA\Response(
-     *         response="200",
-     *         description="The data"
+     *         response=200,
+     *         description="A simple hello message",
+     *         @OA\JsonContent(
+     *             type="object",
+     *             @OA\Property(property="message", type="string", example="Hello, World!")
+     *         )
      *     )
      * )
      */
