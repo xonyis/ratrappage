@@ -3,30 +3,34 @@ name: Deploy Symfony to VPS
 on:
   push:
     branches:
-      - master
+      - master # Déclenchement à chaque push sur la branche master
 
 jobs:
   deploy:
-    runs-on: ubuntu-latest 
+    runs-on: ubuntu-latest
 
     steps:
-      - name: Checkout code
-        uses: actions/checkout@v3
+    # Étape 1 : Récupérer le code
+    - name: Checkout code
+      uses: actions/checkout@v3
 
-      - name: Install dependencies
-        run: composer install --no-dev --optimize-autoloader
+    # Étape 2 : Synchroniser les fichiers avec le VPS
+    - name: Deploy to VPS
+      env:
+        SSH_PRIVATE_KEY: ${{ secrets.SSH_PRIVATE_KEY }}
+      run: |
+        mkdir -p ~/.ssh
+        echo "$SSH_PRIVATE_KEY" > ~/.ssh/id_rsa
+        chmod 600 ~/.ssh/id_rsa
+        ssh-keyscan -H 46.202.153.153 >> ~/.ssh/known_hosts
+        rsync -avz --delete --exclude=".git" ./ root@46.202.153.153:/var/www/<ton-projet>/
 
-      - name: Sync files to VPS
-        env:
-          SSH_PRIVATE_KEY: ${{ secrets.SSH_PRIVATE_KEY }}
-        run: |
-          mkdir -p ~/.ssh
-          echo "$SSH_PRIVATE_KEY" > ~/.ssh/id_rsa
-          chmod 600 ~/.ssh/id_rsa
-          ssh-keyscan -H 81.51.245.32 >> ~/.ssh/known_hosts
-          rsync -avz --delete --exclude=".git" ./ root@46.202.153.153:/www/wwwroot/46.202.153.153/ratrappage/
+    # Étape 3 : Installer les dépendances sur le VPS
+    - name: Install Composer dependencies
+      run: |
+        ssh -i ~/.ssh/id_rsa root@46.202.153.153 "cd /www/wwwroot/46.202.153.153/ratrappage && composer install --no-dev --optimize-autoloader"
 
-      - name: Set permissions
-        run: |
-          ssh -i ~/.ssh/id_rsa root@46.202.153.153 "sudo chown -R www:www /www/wwwroot/46.202.153.153/ratrappage/"
-
+    # Étape 5 : Régler les permissions
+    - name: Set permissions
+      run: |
+        ssh -i ~/.ssh/id_rsa root@46.202.153.153 "sudo chown -R www-data:www-data /www/wwwroot/46.202.153.153/ratrappage"
