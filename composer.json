@@ -17,5 +17,5 @@
     "scripts": {
         "generate-openapi": "php vendor/bin/openapi src --output config/swagger/openapi.json"
     },
-    "version": "0.0.1"
+    "version": "0.0.2"
 }
