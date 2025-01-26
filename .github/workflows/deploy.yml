@@ -1,7 +1,7 @@
 name: Deploy Symfony to VPS
 
 on:
-  push:
+  push: 
     branches:
       - master # Déclenchement à chaque push sur la branche master
 
