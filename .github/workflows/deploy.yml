@@ -37,7 +37,7 @@ jobs:
         ssh-keyscan -H 46.202.153.153 >> ~/.ssh/known_hosts
         rsync -avz --delete --exclude=".git" ./ root@46.202.153.153:/www/wwwroot/46.202.153.153/ratrappage
 
-    # Étape 3 : Installer les dépendances sur le VPS
+    # Étape 3 : Installer les dépendances sur le VPS 
     - name: Install Composer dependencies
       run: |
         ssh -i ~/.ssh/id_rsa root@46.202.153.153 "cd /www/wwwroot/46.202.153.153/ratrappage && composer install --no-dev --optimize-autoloader"
